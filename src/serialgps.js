@@ -9,7 +9,7 @@ var serialgps = function(device, baud) {
 			baudrate: baud, parser: serialport.parsers.readline("\n") });
 	var self = this;
 	port.on('data', function(line) {
-		if (line == undefined) {
+		if (line == undefined || !line.match(/^\$.+\*[0-9A-F]{2}$/)) {
 			return;
 		}
 		var data = nmea.parse(line);
